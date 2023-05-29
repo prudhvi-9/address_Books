@@ -1,18 +1,20 @@
 package address_Book;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class MainConsoleMultipleAddressBook {
-
-	public MainConsoleMultipleAddressBook() {
-		addressBooks = new MainMultilpeAddressBook();
-	}
+public class MainNoDuplicateEntry {
+	private static AddAddressBook addressBookMain;
+	static ArrayList<Person> address = new ArrayList<>();
 
 	static Scanner cs = new Scanner(System.in);
 	static int option;
 	private static int options;
-	private static MainMultilpeAddressBook addressBooks;
-	static ArrayList<Person> address = new ArrayList<>();
+	private static Collection<Person> contacts;
+
+	public MainNoDuplicateEntry() {
+		addressBookMain = new AddAddressBook();
+	}
 
 	/**
 	 * This method is created to add multiple address book.
@@ -20,7 +22,9 @@ public class MainConsoleMultipleAddressBook {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
 		start();
+//		add();
 	}
 
 	/**
@@ -40,28 +44,43 @@ public class MainConsoleMultipleAddressBook {
 			scanner.nextLine();
 			switch (choice) {
 			case 1:
-				System.out.print("Enter name of Address Book: ");
-				String addressBookName = scanner.nextLine();
-				addressBooks.addAddressBook(addressBookName);
-
+				addBookName();
 				break;
 
 			case 2:
 				add();
 				break;
+
 			case 3:
 				update();
 				break;
+
 			case 4:
 				System.out.println("Exiting");
 			}
 		}
 	}
 
+	public static void addBookName() {
+		System.out.print("Enter name of Address Book: ");
+		String bookName = cs.nextLine();
+		String addressBookName = bookName;
+		addressBookMain.setAddressBookName(addressBookName);
+		add();
+	}
+
 	/**
 	 * To create a contact.
 	 */
 	public static void add() {
+		System.out.print("Enter First Name:");
+		String firstname = cs.next();
+		List<Person> duplicateName = contacts.stream().filter(contact -> contact.getFirstName().equals(firstname))
+				.collect(Collectors.toList());
+		if (!(duplicateName.isEmpty())) {
+			System.out.println("Contact already exists");
+			add();
+		}
 
 		Person addressBook = new Person(null, null, null, null, null, option, null, null);
 		System.out.println("Enter firstName:");
@@ -87,7 +106,6 @@ public class MainConsoleMultipleAddressBook {
 
 		address.add(addressBook);
 		System.out.println(address);
-
 	}
 
 	/**

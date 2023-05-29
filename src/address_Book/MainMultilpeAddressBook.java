@@ -11,7 +11,9 @@ public class MainMultilpeAddressBook {
 	public MainMultilpeAddressBook() {
 		addressBooks = new HashMap<>();
 	}
-
+	/*
+	 * To add new addressBook.
+	 */
 	public void addAddressBook(String name) {
 		addressBooks.put(name, new AddressBook(name));
 	}
@@ -19,15 +21,13 @@ public class MainMultilpeAddressBook {
 	public AddressBook getAddressBook(String name) {
 		return addressBooks.get(name);
 	}
-
+	/*
+	 * To add person to addressBook.
+	 */
 	public void addPerson(Person person, String addressBookName) {
 		AddressBook addressBook = addressBooks.get(addressBookName);
 		if (addressBook != null) {
 			addressBook.addPerson(person);
-		} else {
-			System.out.println("Address Book " + addressBookName + " does not exist.");
 		}
-
 	}
-
 }

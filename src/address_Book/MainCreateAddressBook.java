@@ -26,9 +26,7 @@ public class MainCreateAddressBook {
 			case 1:
 				add();
 				mainmenu();
-
 			}
-
 		case 2:
 			System.out.println("exiting");
 		}
